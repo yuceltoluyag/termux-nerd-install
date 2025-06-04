@@ -132,24 +132,24 @@ int random_range(int minimum, int maximum) {
     return rand() % (maximum + 1 - minimum) + minimum;
 }
 
-int download_progress(void* pointer, double total_to_download, double now_downloaded, double total_to_upload, double now_uploaded) {
+// UPDATED download_progress
+int download_progress(void* pointer, curl_off_t total_to_download, curl_off_t now_downloaded, curl_off_t total_to_upload, curl_off_t now_uploaded) {
     (void) pointer;
     (void) total_to_upload;
     (void) now_uploaded;
 
-    if (total_to_download <= 0.0) {
+    if (total_to_download <= 0) {
         return 0;
     }
 
     int total_space = get_terminal_width() / 2;
-    double fraction_downloaded = now_downloaded / total_to_download;
+    double fraction_downloaded = (double) now_downloaded / total_to_download;
 
     int space = (int) round(fraction_downloaded * total_space);
 
     printf("\033[2K\r%3.0f%% [", fraction_downloaded * 100);
 
     int i = 0;
-
     for (; i < space; i++)
         printf("\033[32m=");
 
@@ -198,9 +198,9 @@ void cli_install(char* executable_name, char* name) {
 
     curl_easy_setopt(curl, CURLOPT_URL, url);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, file);
-    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
-    curl_easy_setopt(curl, CURLOPT_NOPROGRESS, false);
-    curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, download_progress);
+    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+    curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0L);
+    curl_easy_setopt(curl, CURLOPT_XFERINFOFUNCTION, download_progress);
 
     curl_easy_perform(curl);
     curl_easy_cleanup(curl);
