@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -ggdb -o
 OBJECT = termux-nerd-installer
 SRC = $(wildcard src/*)
 LIBS = -lcurl -lm
-INSTALLATION_PATH = $(PREFIX)/bin
+INSTALLATION_PATH = /usr/local/bin
 
 
 default: $(SRC)
