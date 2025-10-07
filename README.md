@@ -1,5 +1,5 @@
 # Disclaimer
-This is the original repository for termux-nerd-install, previously known as termux-nerd-installer. I have deleted my old GitHub account and this is a reupload with the most recent commits, I am not associated with [https://github.com/MorganJBradford/termux-nerd-installer](this) and it was not permitted my me to be uploaded.
+This is the original repository for termux-nerd-install, previously known as termux-nerd-installer. I have deleted my old GitHub account and this is a reupload with the most recent commits, I am not associated with [https://github.com/MorganJBradford/termux-nerd-installer](this) and it was not permitted by me to be uploaded.
 
 ## Termux-nerd-installer
 [Termux](https://github.com/termux/termux-app) tool to easily install nerd fonts
