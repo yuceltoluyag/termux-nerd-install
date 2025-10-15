@@ -3,21 +3,20 @@ CFLAGS = -Wall -Wextra -ggdb -o
 OBJECT = termux-nerd-install
 SRC = $(wildcard src/*)
 LIBS = -lcurl -lm
-INSTALLATION_PATH = /usr/local/bin
-
+PREFIX ?= $(HOME)/.local
+INSTALLATION_PATH = $(PREFIX)/bin
 
 default: $(SRC)
 	$(CC) $(CFLAGS) $(OBJECT) $(SRC) $(LIBS)
 
+clean:
+	rm -f $(OBJECT)
 
-clean: $(OBJECT)
-	rm $(OBJECT)
+install: default | $(INSTALLATION_PATH)
+	cp $(OBJECT) $(INSTALLATION_PATH)/
 
+$(INSTALLATION_PATH):
+	mkdir -p $(INSTALLATION_PATH)
 
-install: $(INSTALLATION_PATH)
-	make default
-	mv $(OBJECT) $(INSTALLATION_PATH)
-
-
-uninstall: $(INSTALLATION_PATH)/$(OBJECT)
-	rm $(INSTALLATION_PATH)/$(OBJECT)
+uninstall:
+	rm -f $(INSTALLATION_PATH)/$(OBJECT)
